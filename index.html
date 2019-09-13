@@ -49,15 +49,15 @@
   <audio data-key="68" src="sounds/kmg-d.mp3"></audio>
   <audio data-key="69" src="sounds/kmg-e.mp3"></audio>
   <audio data-key="70" src="sounds/kmg-f.mp3"></audio>
-  <audio data-key="71" src="sounds/G.wav"></audio>
-  <audio data-key="72" src="sounds/A+1.wav"></audio>
+  <audio data-key="71" src="sounds/G.mp3"></audio>
+  <audio data-key="72" src="sounds/A+1.mp3"></audio>
 
 <script>
   function soundOnKey(e){
-    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
-    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
     if (!audio) return;
-    playAudio(audio, key)
+    playAudio(audio, key);
   }
 
   function soundOnClick(e){
@@ -66,23 +66,23 @@
     const key = document.querySelector(`.key[data-key="${keyCode}"]`)
 
     if (!audio) return;
-    playAudio(audio, key)
+    playAudio(audio, key);
   }
 
   function playAudio(audio, element){
     audio.currentTime = 0;
     audio.play();
-    element.classList.add('playing')
+    element.classList.add('playing');
   }
 
   function removeTransition(e){
     if(e.propertyName !== 'transform') return;
-    this.classList.remove('playing')
+    this.classList.remove('playing');
   }
 
-  const keys = document.querySelectorAll('.key')  
-  keys.forEach(key =>key.addEventListener('transitionend', removeTransition))
-  keys.forEach(key =>key.addEventListener("click", soundOnClick))
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key =>key.addEventListener('transitionend', removeTransition));
+  keys.forEach(key =>key.addEventListener("click", soundOnClick));
 
   window.addEventListener('keydown', soundOnKey);
 </script>
