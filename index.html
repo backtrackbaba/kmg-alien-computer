@@ -53,24 +53,38 @@
   <audio data-key="72" src="sounds/A+1.wav"></audio>
 
 <script>
-  function playSound(e){
+  function soundOnKey(e){
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
     const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+    if (!audio) return;
+    playAudio(audio, key)
+  }
+
+  function soundOnClick(e){
+    keyCode =  e.toElement.parentNode.dataset.key || 0
+    const audio = document.querySelector(`audio[data-key="${keyCode}"]`)
+    const key = document.querySelector(`.key[data-key="${keyCode}"]`)
 
     if (!audio) return;
+    playAudio(audio, key)
+  }
+
+  function playAudio(audio, element){
     audio.currentTime = 0;
     audio.play();
-    key.classList.add('playing')
+    element.classList.add('playing')
   }
 
   function removeTransition(e){
     if(e.propertyName !== 'transform') return;
     this.classList.remove('playing')
   }
-  const keys = document.querySelectorAll('.key')
-  keys.forEach(key =>key.addEventListener('transitionend', removeTransition))
 
-  window.addEventListener('keydown', playSound);
+  const keys = document.querySelectorAll('.key')  
+  keys.forEach(key =>key.addEventListener('transitionend', removeTransition))
+  keys.forEach(key =>key.addEventListener("click", soundOnClick))
+
+  window.addEventListener('keydown', soundOnKey);
 </script>
 
 </body>
